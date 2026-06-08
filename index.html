@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Password Strength Analyzer</title>
+
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #0f172a, #111827);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        color: white;
+    }
+
+    .card {
+        width: 380px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 18px;
+        padding: 25px;
+        box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+        backdrop-filter: blur(10px);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    p {
+        text-align: center;
+        font-size: 13px;
+        color: #cbd5e1;
+        margin-bottom: 20px;
+    }
+
+    .input-box {
+        position: relative;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        font-size: 15px;
+    }
+
+    .eye {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 18px;
+        color: #94a3b8;
+    }
+
+    .bar {
+        height: 10px;
+        width: 100%;
+        background: #334155;
+        border-radius: 6px;
+        margin-top: 15px;
+        overflow: hidden;
+    }
+
+    .fill {
+        height: 100%;
+        width: 0%;
+        transition: 0.4s ease;
+    }
+
+    .weak { background: #ef4444; }
+    .medium { background: #f59e0b; }
+    .strong { background: #22c55e; }
+
+    .status {
+        text-align: center;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    .tips {
+        margin-top: 15px;
+        font-size: 13px;
+        color: #cbd5e1;
+    }
+
+    .tips li {
+        margin-bottom: 5px;
+    }
+
+    .footer {
+        margin-top: 15px;
+        font-size: 11px;
+        text-align: center;
+        color: #64748b;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>🔐 Password Analyzer</h2>
+    <p>Real-time password security checker</p>
+
+    <div class="input-box">
+        <input type="password" id="pwd" oninput="check()">
+        <span class="eye" onclick="togglePassword()"></span>
+    </div>
+
+    <div class="bar">
+        <div id="fill" class="fill"></div>
+    </div>
+
+    <div id="status" class="status">Start typing...</div>
+
+    <ul class="tips">
+        <li>✔ At least 8 characters</li>
+        <li>✔ Upper & lowercase letters</li>
+        <li>✔ Numbers included</li>
+        <li>✔ Special characters</li>
+    </ul>
+
+    <div class="footer">
+        Cyber Security Internship Project • Built with HTML, CSS & JS
+    </div>
+</div>
+
+<script>
+function check() {
+    let p = document.getElementById("pwd").value;
+    let score = 0;
+
+    if (p.length >= 8) score++;
+    if (/[A-Z]/.test(p)) score++;
+    if (/[a-z]/.test(p)) score++;
+    if (/[0-9]/.test(p)) score++;
+    if (/[^A-Za-z0-9]/.test(p)) score++;
+
+    let fill = document.getElementById("fill");
+    let status = document.getElementById("status");
+
+    fill.className = "fill";
+
+    if (score <= 2) {
+        fill.style.width = "30%";
+        fill.classList.add("weak");
+        status.innerHTML = "Weak ❌ Try improving it";
+        status.style.color = "#ef4444";
+    }
+    else if (score === 3 || score === 4) {
+        fill.style.width = "65%";
+        fill.classList.add("medium");
+        status.innerHTML = "Medium ⚠️ Could be stronger";
+        status.style.color = "#f59e0b";
+    }
+    else {
+        fill.style.width = "100%";
+        fill.classList.add("strong");
+        status.innerHTML = "Strong ✅ Secure password";
+        status.style.color = "#22c55e";
+    }
+}
+
+function togglePassword() {
+    let input = document.getElementById("pwd");
+    input.type = (input.type === "password") ? "text" : "password";
+}
+</script>
+
+</body>
+</html>
