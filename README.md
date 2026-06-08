@@ -8,7 +8,7 @@ This project helps users check the strength of their passwords in real time and 
 ## 🚀 Live Demo
 (If deployed using GitHub Pages, paste your link here)
 
-👉 https://your-username.github.io/password-strength-analyzer/
+👉 https://amalmk-codes.github.io/password-strength-analyzer/
 
 ---
 
